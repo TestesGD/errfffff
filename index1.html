@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login e Pagamento</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="script.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 30px auto;
+      background: #f4f6f9;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; }
+    form { display: flex; flex-direction: column; }
+    input, select, button {
+      margin: 8px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    #user-info { text-align: center; margin-top: 10px; }
+    img { border-radius: 50%; margin-top: 5px; }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login com Google</h2>
+
+  <div id="g_id_onload"
+       data-client_id="SEU_CLIENT_ID_AQUI"
+       data-context="signin"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+
+  <div class="g_id_signin"
+       data-type="standard"
+       data-shape="rectangular"
+       data-theme="outline"
+       data-text="signin_with"
+       data-size="large">
+  </div>
+
+  <div id="user-info"></div>
+
+  <hr>
+
+  <h2>Formas de Pagamento</h2>
+
+  <form id="pagamento-form">
+    <label>Escolha a forma de pagamento:</label>
+    <select id="forma">
+      <option value="cartao">Cartão</option>
+      <option value="pix">Pix</option>
+    </select>
+
+    <div id="cartao-info">
+      <input type="text" placeholder="Número do Cartão" id="numero" required>
+      <input type="text" placeholder="Nome no Cartão" id="nome" required>
+      <input type="text" placeholder="Validade" id="validade" required>
+      <input type="text" placeholder="CVV" id="cvv" required>
+    </div>
+
+    <div id="pix-info" style="display:none;">
+      <input type="text" placeholder="Chave Pix" id="pix-chave" required>
+    </div>
+
+    <button type="submit">Salvar Pagamento</button>
+  </form>
+
+  <pre id="jsonOutput"></pre>
+  <script>
+    // ====== LOGIN GOOGLE ======
+function handleCredentialResponse(response) {
+  const data = decodeJwtResponse(response.credential);
+  document.getElementById("user-info").innerHTML = `
+    <p>Olá, <b>${data.name}</b>!</p>
+    <img src="${data.picture}" width="60">
+  `;
+}
+
+function decodeJwtResponse(token) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64).split('').map(c =>
+      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    ).join('')
+  );
+  return JSON.parse(jsonPayload);
+}
+
+// ====== PAGAMENTO ======
+const pagamentoForm = document.getElementById('pagamento-form');
+const forma = document.getElementById('forma');
+const cartaoInfo = document.getElementById('cartao-info');
+const pixInfo = document.getElementById('pix-info');
+const jsonOutput = document.getElementById('jsonOutput');
+
+// alternar tipo
+forma.addEventListener('change', () => {
+  if (forma.value === 'cartao') {
+    cartaoInfo.style.display = 'block';
+    pixInfo.style.display = 'none';
+  } else {
+    cartaoInfo.style.display = 'none';
+    pixInfo.style.display = 'block';
+  }
+});
+
+// enviar pro servidor
+pagamentoForm.addEventListener('submit', async e => {
+  e.preventDefault();
+
+  let pagamento = { tipo: forma.value };
+
+  if (forma.value === 'cartao') {
+    pagamento.dados = {
+      numero: document.getElementById('numero').value,
+      nome: document.getElementById('nome').value,
+      validade: document.getElementById('validade').value,
+      cvv: document.getElementById('cvv').value
+    };
+  } else {
+    pagamento.dados = {
+      chavePix: document.getElementById('pix-chave').value
+    };
+  }
+
+  const resposta = await fetch("http://localhost:3000/salvar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(pagamento)
+  });
+
+  const resultado = await resposta.json();
+  jsonOutput.textContent = JSON.stringify(pagamento, null, 2);
+  alert(resultado.mensagem);
+});
+  </script>
+</body>
+</html>

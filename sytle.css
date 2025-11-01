@@ -1,0 +1,286 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* GERAL */
+html, body {
+  background: linear-gradient(rgb(5, 252, 235), #e3f2fd);
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+}
+
+
+header {
+  background: linear-gradient(to right, #0277bd, white);
+  color: white;
+  text-align: center;
+  padding: 15px 0 10px;
+  position: relative;
+}
+
+/* TÍTULO */
+header h1 {
+  color: rgb(25, 255, 4);
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+/* LINKS DO MENU (PC) */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+  font-size: 18px;
+}
+
+.nav-links a:hover {
+  color: #ffd700;
+}
+
+/* ÍCONE HAMBÚRGUER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 28px;
+  height: 21px;
+  position: absolute;
+  left: 20px;  /* ícone no lado direito */
+  top: 25px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* ESCONDE CHECKBOX */
+.menu-checkbox {
+  display: none;
+}
+
+/* MENU LATERAL (celular) */
+.side-menu {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0; /* Abre no lado direito */
+  background: #0277bd;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  padding-top: 70px;
+  z-index: 1000;
+}
+
+.side-menu a {
+  padding: 12px 25px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  transition: background 0.3s;
+}
+
+.side-menu a:hover {
+  background: #015c94;
+}
+
+/* ABRIR MENU LATERAL */
+.menu-checkbox:checked ~ .side-menu {
+  width: 220px;
+}
+
+/* ANIMAÇÃO DO ÍCONE */
+.menu-checkbox:checked + .hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-checkbox:checked + .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.menu-checkbox:checked + .hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* SEÇÃO BANNER */
+.baner {
+  width: 100%;
+  height: 30vh;
+  background-image: url("praia3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.baner h2 {
+  padding-top: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 34pt;
+  text-align: center;
+  color: black;
+}
+
+.baner p {
+  padding-top: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+  color: black;
+  text-align: center;
+}
+
+/* SEÇÕES GERAIS */
+.section {
+  padding-bottom: 20px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section h2 {
+  color: #1e3a8a;
+  margin-bottom: 30px;
+}
+
+/* GRADIENTE DA SEÇÃO DE PROMOÇÕES */
+.fun {
+  background: linear-gradient(white, rgb(5, 252, 235), #06f016, #06f016, #e66706, rgb(252, 207, 5) , rgb(5, 5, 5), rgb(11, 11, 11) , rgb(5, 5, 5));
+  text-align: center;
+
+
+}
+
+/* TÍTULOS */
+.h {
+  padding: 60px 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* CARDS */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px ;
+  height: 100vh;
+  gap: 25px;
+  
+  
+ 
+}
+.card-container h1 {
+  margin-top: 30px;
+  color: #015c94;
+}
+.card {
+  position: relative;
+  margin-top: 35px;
+  background: linear-gradient(#0277bd, white);
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(205, 9, 9, 0.1);
+  width: 280px;
+  padding: 15px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  animation: aparecer 0.6s forwards;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.carrossel-card:nth-child(1) { animation-delay: 0s; }
+.carrossel-card:nth-child(2) { animation-delay: 0.15s; }
+.carrossel-card:nth-child(3) { animation-delay: 0.3s; }
+.carrossel-card:nth-child(4) { animation-delay: 0.45s; }
+.carrossel-card:nth-child(5) { animation-delay: 0.65s; }
+.carrossel-card:nth-child(1) { animation-delay: 0s; }
+.carrossel-card:nth-child(2) { animation-delay: 0.15s; }
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* EFEITO HOVER */
+.card:hover {
+  transform: scale(1.1);
+  background: white;
+  color: aqua;
+}
+
+/* DETALHES */
+details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+details > *:not(summary) {
+  align-self: flex-start;
+  text-align: left;
+}
+
+summary.resumo {
+  color: white;
+  display: inline-block;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* RODAPÉ */
+footer {
+  text-align: center;
+  background: rgb(12, 12, 12);
+  color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+}
+/* 🔽 RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* esconde menu padrão */
+  }
+
+  .hamburger {
+    display: flex; /* mostra o botão */
+  }
+
+  header h1 {
+    font-size: 24px;
+    text-align: center; /* título centralizado no celular */
+    width: 100%;
+  }
+}

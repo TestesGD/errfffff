@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página</title>
+  <link rel="stylesheet" href="sytle.css">
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+ <header class="navbar">
+        <h1>Bem-Vind a GD Turismo</h1>
+
+    <!-- Ícone e checkbox do menu -->
+    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <!-- Menu normal (visível no computador) -->
+    <nav class="nav-links">
+      <a href="#praias">praias</a>
+      <a href="#">Praias</a>
+      <a href="#">Trilhas</a>
+      <a href="#">Contato</a>
+    </nav>
+
+    <!-- Menu lateral (para celular) -->
+    <div class="side-menu">
+      <a href="#">Início</a>
+      <a href="#">Praias</a>
+      <a href="#">Trilhas</a>
+      <a href="#">Contato</a>
+    </div>
+ 
+
+  </header>
+
+
+  <section class="baner">
+    <h2>Oi!</h2>
+    <p>O que é a vida?</p>
+  </section>
+
+  <!-- Container que agrupa vários carrosséis lado a lado -->
+  <div class="fun">  
+    <div class="h">
+      <h2>Vem desscobri a nossas Praias</h2>
+    </div>
+    <section class="carrossel-container" id="praias">
+    
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel1">
+        <div class="slide ativo">
+          <h2>Descubra as Praias de Sergipe</h2>
+          <img src="praias/aracaju.jpg" alt="Praia de Atalaia">
+          <div class="descricao">
+            <h3>Praia de Atalaia</h3>
+            <p>Aracaju - Sergipe</p><br>
+            <p>Descubra o melhor do litoral sergipano em uma viagem inesquecível!
+            Neste pacote, você conhecerá as principais praias do estado, com conforto, diversão e paisagens deslumbrantes.</p>
+            <details>
+              <summary class="resumo">para saber mais clique aqui</summary>
+              <p>🚌 Incluso no pacote:</p>
+              <ul>
+                <li>Transporte turístico com ar-condicionado</li>
+                <li>Guia credenciado</li>
+                <li>Almoço regional</li>
+                <li>Água mineral e lanche leve</li>
+                <li>Seguro viagem</li>
+              </ul>
+              <p>📅 Duração: 2 dias e 1 noite</p>
+              <p>✨ Promoção especial: Grupos a partir de 4 pessoas ganham 10% de desconto!</p>
+            </details>
+            <p>💰 Valor: R$ 750,00 por pessoa</p>
+            <a href="compra.html">
+              <button>compra</button>
+            </a>
+          </div>
+        </div>
+
+        <div class="slide">
+          
+          <img src="praias/Praia do Saco (Estância).jpeg" alt="Praia do saco">
+          <div class="descricao">
+            <h3>Praia do Saco</h3>
+            <p>Estância</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praias/Praia de Pirambu.jpeg" alt="Praia de Pirambu">
+          <div class="descricao">
+            <h3>Praia de Pirambu</h3>
+            <p>Pirambu</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="praias/Praia de Abaís.jpeg" alt="Praia de Abaís">
+          <div class="descricao">
+            <h3>Praia de Abaís</h3>
+            <p>Estância</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="praias/Passeio de buggy nas dunas.jpeg" alt="Passeio de buggy">
+          <div class="descricao">
+            <h3>Passeio de buggy nas dunas</h3>
+            <p>Praia do Saco e Mangue Seco </p>
+          </div>
+        </div>
+
+      </div>
+      <div class="dots-container"></div>
+    </div>
+
+    <!-- Segundo carrossel -->
+    <!---PRAIAS DA BAIHA-->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel2">
+        <div class="slide ativo">
+          <h2>Descubra as Praias da Bahia</h2>
+          <img src="praias ba/Mangue Seco.jpeg" alt="Mangue Seco">
+          <div class="descricao">
+            <h3>Praia do Mangue Seco</h3>
+            <p>Jandaíra</p>
+            <p>
+              Sinta a energia da Bahia!<br> 🌞
+              Dunas, ilhas e praias paradisíacas esperam por você em Mangue Seco, Morro de São Paulo e Praia do Forte. <br>
+              ✨ Viva a Bahia com conforto, alegria e sol o ano todo!
+            </p>
+            <details>
+              <summary class="resumo">para saber mais clique aqui</summary>
+              <p>🚌 Incluso no pacote:</p>
+              <ul>
+                <li>Transporte turístico com ar-condicionado</li>
+                <li>Guia credenciado</li>
+                <li>Almoço regional</li>
+                <li>Água mineral e lanche leve</li>
+                <li>Seguro viagem</li>
+              </ul>
+              <p>📅 Duração: 3 dias e 2 noite</p>
+              <p>✨ Promoção especial: Grupos a partir de 4 pessoas ganham 10% de desconto!</p>
+            </details>
+            <p>💰 Valor: R$ 890,00 por pessoa</p>
+            <a href="compra.html">
+              <button>compra</button>
+            </a>
+
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praias ba/Ilhéus.jpeg" alt="Ilhéus">
+          <div class="descricao">
+            <h3>Praias de Ilhéus</h3>
+            <p>Ilhéus</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praias ba/Morro de São Paulo.jpeg" alt="Morro de São Paulo">
+          <div class="descricao">
+            <h3>Praia Morro de São Paulo</h3>
+            <p>Cairu</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="praias ba/praia do forte.jpeg" alt="praia do forte">
+          <div class="descricao">
+            <h3>Praia do Forte</h3>
+            <p>Mata de São João</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="praias ba/Trancoso.jpeg" alt="praia de Trancoso">
+          <div class="descricao">
+            <h3>Praia do Trancoso</h3>
+            <p>Porto Seguro</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+    <!---PRAIAS DE ALAGOAS-->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel3">
+        <div class="slide ativo">
+          <h2>Descubra as Praias de Alagoas</h2>
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+            <p>
+              Mergulhe nas águas cristalinas de Maragogi, Milagres e Praia do Francês.
+              Um paraíso de cores, mar azul e tranquilidade! 💙 <br>
+              🌴 Venha viver dias perfeitos nas praias mais lindas do Brasil.
+            </p>
+            <details>
+              <summary class="resumo">para saber mais clique aqui</summary>
+              <p>🚌 Incluso no pacote:</p>
+              <ul>
+                <li>Transporte turístico com ar-condicionado</li>
+                <li>Guia credenciado</li>
+                <li>Almoço regional</li>
+                <li>Água mineral e lanche leve</li>
+                <li>Seguro viagem</li>
+              </ul>
+              <p>📅 Duração: 3 dias e 2 noite</p>
+              <p>✨ Promoção especial: Grupos a partir de 4 pessoas ganham 10% de desconto!</p>
+            </details>
+            <p>💰 Valor: R$ 990,00 por pessoa</p>
+            <a href="compra.html">
+              <button>compra</button>
+            </a>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+    <!---PRAIAS DE PERNAMBUCO-->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel4">
+        <div class="slide ativo">
+          <h2>Descubra as Praias de Pernambuco</h2>
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+            <p>
+              Descubra o encanto de Porto de Galinhas, Carneiros e Boa Viagem.
+              Cultura, sabores e paisagens incríveis te esperam! <br> ☀️
+              ✨ Pernambuco é pura energia — venha se apaixonar!
+            </p>
+            <details>
+              <summary class="resumo">para saber mais clique aqui</summary>
+              <p>🚌 Incluso no pacote:</p>
+              <ul>
+                <li>Transporte turístico com ar-condicionado</li>
+                <li>Guia credenciado</li>
+                <li>Almoço regional</li>
+                <li>Água mineral e lanche leve</li>
+                <li>Seguro viagem</li>
+              </ul>
+              <p>📅 Duração: 3 dias e 2 noite</p>
+              <p>✨ Promoção especial: Grupos a partir de 4 pessoas ganham 10% de desconto!</p>
+            </details>
+            <p>💰 Valor: R$ 1.050,00 por pessoa</p>
+            <a href="compra.html">
+              <button>compra</button>
+            </a>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>    
+  </section>
+
+
+  <div class="h">
+    <h2>Apraveiter trilhas e caixoeiras</h2>
+  </div>
+  <section class="carrossel-container" id="promocoes">
+    
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel">
+        <div class="slide ativo">
+          <img src="praias/aracaju.jpg" alt="Praia de Atalaia">
+          <div class="descricao">
+            <h3>Praia de Atalaia</h3>
+            <p>Aracaju - Sergipe</p><br>
+            <p>O melhor lugar para voçê conhecer</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia do Francês">
+          <div class="descricao">
+            <h3>Praia do Francês</h3>
+            <p>Maceió - Alagoas</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Praia de Pipa">
+          <div class="descricao">
+            <h3>Praia de Pipa</h3>
+            <p>Tibau do Sul - RN</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+
+    <!-- Segundo carrossel -->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel">
+        <div class="slide ativo">
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+     <!-- Segundo carrossel -->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel6">
+        <div class="slide ativo">
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+     <!-- Segundo carrossel -->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel6">
+        <div class="slide ativo">
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+     <!-- Segundo carrossel -->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel6">
+        <div class="slide ativo">
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+
+  </section>
+
+
+  <div class="h">
+    <h2>Combo completo Praias, cachoeiras e trilhas</h2>
+  </div>
+  <section class="carrossel-container" id="promocoes">
+    
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel3">
+        <div class="slide ativo">
+          <img src="praias/aracaju.jpg" alt="Praia de Atalaia">
+          <div class="descricao">
+            <h3>Praia de Atalaia</h3>
+            <p>Aracaju - Sergipe</p><br>
+            <p>O melhor lugar para voçê conhecer</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia do Francês">
+          <div class="descricao">
+            <h3>Praia do Francês</h3>
+            <p>Maceió - Alagoas</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Praia de Pipa">
+          <div class="descricao">
+            <h3>Praia de Pipa</h3>
+            <p>Tibau do Sul - RN</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+
+    <!-- Segundo carrossel -->
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel6">
+        <div class="slide ativo">
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+    <div class="carrossel-card">
+      <div class="carrosel" id="carrossel5">
+        <div class="slide ativo">
+          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <div class="descricao">
+            <h3>Praia dos Carneiros</h3>
+            <p>Pernambuco</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <div class="descricao">
+            <h3>Porto de Galinhas</h3>
+            <p>Ipojuca - PE</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <div class="descricao">
+            <h3>Morro Branco</h3>
+            <p>Beberibe - CE</p>
+          </div>
+        </div>
+      </div>
+      <div class="dots-container"></div>
+    </div>
+  </section>
+
+  <section class="card-container">
+    <H1>Black fride</H1>
+    
+
+  </section>
+
+
+
+
+
+
+  </div>
+  <footer>
+    <p>Desenvolvido por GDS  --- 2025 </p>
+  </footer>
+
+
+
+
+</body>
+</html>
