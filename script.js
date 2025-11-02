@@ -55,5 +55,32 @@
     initCarrossel('carrossel2');
     initCarrossel('carrossel3');
     initCarrossel('carrossel4');
-       initCarrossel('carrossel5');
-          initCarrossel('carrossel6');
+    initCarrossel('carrossel5');
+    initCarrossel('carrossel6');
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const botao=
+    document.getElementById('abriModal');
+    const fundo=
+    document.getElementById('fundoModal');
+    const fechar =
+    document.getElementById('fecharModal');
+
+    botao.onclick = () => fundo.style.display = 'flex';
+
+    fechar.onclick =() =>fundo.style.display = 'none';
+    window.onclick = (e) => {
+      if (e.target === fundo)
+    fundo.style.display ='none';
+    }

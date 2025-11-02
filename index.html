@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -45,7 +46,7 @@
 
 
   <section class="baner">
-    <h2>Oi!</h2>
+    <h2>Viaje, descubra e viva experiências inesquecíveis</h2>
     <p>O que é a vida?</p>
   </section>
 
@@ -194,10 +195,10 @@
       <div class="carrosel" id="carrossel3">
         <div class="slide ativo">
           <h2>Descubra as Praias de Alagoas</h2>
-          <img src="praia2.jpg" alt="Praia dos Carneiros">
+          <img src="praias al/Maragogi.jpeg" alt="Praia de Maragogi">
           <div class="descricao">
-            <h3>Praia dos Carneiros</h3>
-            <p>Pernambuco</p>
+            <h3>Praia de Maragogi</h3>
+            <p>Maragogi</p>
             <p>
               Mergulhe nas águas cristalinas de Maragogi, Milagres e Praia do Francês.
               Um paraíso de cores, mar azul e tranquilidade! 💙 <br>
@@ -224,20 +225,34 @@
         </div>
 
         <div class="slide">
-          <img src="praia3.jpg" alt="Porto de Galinhas">
+          <img src="praias al/Praia do Francês.jpeg" alt="Praia do Francês">
           <div class="descricao">
-            <h3>Porto de Galinhas</h3>
-            <p>Ipojuca - PE</p>
+            <h3>Praia do Francês</h3>
+            <p>Marechal Deodoro</p>
           </div>
         </div>
 
         <div class="slide">
-          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <img src="praias al/Barra de São Miguel.jpeg" alt="Barra de  São Miguel ">
           <div class="descricao">
-            <h3>Morro Branco</h3>
-            <p>Beberibe - CE</p>
+            <h3>Barra de São Miguel</h3>
+            <p>Barra de São Miguel</p>
           </div>
         </div>
+        <div class="slide">
+          <img src="praias al/Pajuçara.jpeg" alt="Praia de Pajuçara">
+          <div class="descricao">
+            <h3>Praia de Pajuçara</h3>
+            <p>Maceió</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="praias al/São Miguel dos Milagres.jpeg" alt="Praia de São Miguel dos Milagres">
+          <div class="descricao">
+            <h3>Praia de São Miguel dos Milagres</h3>
+            <p>São Miguel dos Milagres</p>
+          </div>
+        </div>                
       </div>
       <div class="dots-container"></div>
     </div>
@@ -249,7 +264,7 @@
           <img src="praia2.jpg" alt="Praia dos Carneiros">
           <div class="descricao">
             <h3>Praia dos Carneiros</h3>
-            <p>Pernambuco</p>
+            <p>Tamandaré</p>
             <p>
               Descubra o encanto de Porto de Galinhas, Carneiros e Boa Viagem.
               Cultura, sabores e paisagens incríveis te esperam! <br> ☀️
@@ -279,17 +294,31 @@
           <img src="praia3.jpg" alt="Porto de Galinhas">
           <div class="descricao">
             <h3>Porto de Galinhas</h3>
-            <p>Ipojuca - PE</p>
+            <p>Ipojuca</p>
           </div>
         </div>
 
         <div class="slide">
-          <img src="praia.jpg" alt="Praia de Morro Branco">
+          <img src="praias pe/Boa Viagem.jpeg" alt="Praia de Boa Viagem">
           <div class="descricao">
-            <h3>Morro Branco</h3>
-            <p>Beberibe - CE</p>
+            <h3>Boa Viagem</h3>
+            <p>Recife</p>
           </div>
         </div>
+        <div class="slide">
+          <img src="praias pe/Olinda (Centro Histórico e Mirante).jpeg" alt="Praia de Olinda (Centro Histórico e Mirante)">
+          <div class="descricao">
+            <h3>Praia de Olinda</h3>
+            <p>Olinda</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="praias pe/Ilha de Itamaracá.jpeg" alt="Ilha de Itamaracá">
+          <div class="descricao">
+            <h3>Ilha de Itamaracá</h3>
+            <p>Itamaracá</p>
+          </div>
+        </div>                
       </div>
       <div class="dots-container"></div>
     </div>    
@@ -545,20 +574,87 @@
     </div>
   </section>
 
-  <section class="card-container">
-    <H1>Black fride</H1>
+  <!-- ======= CONTATOS ======= -->
+   
+  <section class="card-container" id="contato">
+    <h1>Ofertas do mês </h1>
+    <div class="conta">
+      <div class="card">
+        <h3>Combo Completo</h3>
+        <h3>Vem visitar Sergipe</h3><br>
+        <p>3 Praias + 2 Trilhas + Hospedagem</p>
+        <p><strong>R$ 699,00</strong></p>
+        <button id="abriModal">Ver Detalhes</button>
+      </div>
+    </div>  
+        <!-- Fundo + conteúdo do modal -->
+        <div class="modal-fundo" id="fundoModal">
+          <div class="modal">
+              
+                <span class="fechar" id="fecharModal">&times;</span>
+                <h3>25% OFF</h3>
+                <p>Oferta por tempo limitado!</p>
+                <ul>
+                  <li>3 Praias Premium: Ponta do Saco, Atalaia, Pirambu</li>
+                  <li>2 Trilhas Inclusas: Trilha do Mirante, Trilha do Cachoeiro</li>
+                  <li>Hospedagem inclusa</li>
+                </ul>
+              
+          </div>
+            
+        </div>
+
+
+
     
+
+    
+
+
+
+
+
+
+
+    <h1>Contatos</h1>
+    <div class="conta">
+      <div class="card">
+        <h3>Via WhatsApp</h3>
+        <div class="conta-icons">
+          <a href="https://wa.me/557998559547" class="icon-w" target="_blank"><i class="fab fa-whatsapp"></i></a> 
+        </div>
+      </div>
+    
+   
+      <div class="card">
+        <h3>Via WhatsApp</h3>
+        <div class="conta-icons">
+          <a href="https://www.instagram.com/gabriel_diniz_1?igsh=MmhidmpycnRlaDFh" class="icon-i" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Via WhatsApp</h3>
+        <div class="conta-icons">
+          <a href="mailto:gabrieldinizsantos5@gmail.com" class="icon-e" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+
+        </div>
+      </div>
+
+    </div>
 
   </section>
 
-
-
-
-
-
-  </div>
+</div>
   <footer>
     <p>Desenvolvido por GDS  --- 2025 </p>
+    <div class="social-icons">
+      <a href="https://wa.me/557998559547" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.linkedin.com/in/gabriel-diniz-92ab9b340?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"  target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/gabriel_diniz_1?igsh=MmhidmpycnRlaDFh" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/Gabriel-Diniz-beck" target="_blank"><i class="fab fa-github"></i></a>
+      
+    </div>
   </footer>
 
 

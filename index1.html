@@ -1,159 +1,1440 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<!doctype html>
+<html lang="pt-br">
+ <head>
   <meta charset="UTF-8">
-  <title>Login e Pagamento</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GD Turismo - Descubra Sergipe</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&amp;display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 400px;
-      margin: 30px auto;
-      background: #f4f6f9;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100%;
+      color: #333;
     }
-    h2 { text-align: center; }
-    form { display: flex; flex-direction: column; }
-    input, select, button {
-      margin: 8px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+
+    html {
+      height: 100%;
     }
-    button {
-      background: #007bff;
+
+    /* Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.8rem;
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      text-transform: capitalize;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    /* Menu hamburguer */
+    .menu-checkbox {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #667eea;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      padding: 5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 999;
+    }
+
+    .side-menu a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      text-transform: capitalize;
+    }
+
+    .menu-checkbox:checked ~ .side-menu {
+      right: 0;
+    }
+
+    .menu-checkbox:checked ~ .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-checkbox:checked ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-checkbox:checked ~ .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Banner */
+    .baner {
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23667eea" width="1200" height="600"/><path fill="%23764ba2" opacity="0.3" d="M0 300 Q300 150 600 300 T1200 300 V600 H0 Z"/></svg>');
+      background-size: cover;
+      background-position: center;
+      padding: 8rem 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    .baner h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .baner p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Seção de praias */
+    .fun {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .h {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .h h2 {
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Carrossel */
+    .carrossel-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .carrossel-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .carrosel {
+      position: relative;
+      width: 100%;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+    }
+
+    .slide.ativo {
+      display: flex;
+    }
+
+    .slide h2 {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    .descricao {
+      padding: 2rem;
+    }
+
+    .descricao h3 {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+
+    .descricao p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .descricao ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: #666;
+    }
+
+    .descricao ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    details {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .resumo {
+      cursor: pointer;
+      color: #667eea;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .resumo:hover {
+      text-decoration: underline;
+    }
+
+    details[open] .resumo {
+      margin-bottom: 1rem;
+    }
+
+    .descricao button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      margin-top: 1rem;
+      text-transform: uppercase;
+    }
+
+    .descricao button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .descricao a {
+      text-decoration: none;
+    }
+
+    /* Controles do carrossel */
+    .carrossel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+    }
+
+    .carrossel-controls button {
+      background: #667eea;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+
+    .carrossel-controls button:hover {
+      background: #764ba2;
+    }
+
+    /* Indicadores */
+    .carrossel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+    }
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .indicator.ativo {
+      background: #667eea;
+    }
+
+    /* Seção de Trilhas */
+    .trilhas-section {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .trilhas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .trilha-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
     }
-    button:hover { background: #0056b3; }
-    #user-info { text-align: center; margin-top: 10px; }
-    img { border-radius: 50%; margin-top: 5px; }
-    pre {
-      background: #eee;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
+
+    .trilha-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .trilha-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .trilha-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .trilha-card:hover .trilha-image img {
+      transform: scale(1.1);
+    }
+
+    .difficulty-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .difficulty-badge.facil {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .difficulty-badge.moderada {
+      background: #FF9800;
+      color: white;
+    }
+
+    .difficulty-badge.dificil {
+      background: #F44336;
+      color: white;
+    }
+
+    .trilha-content {
+      padding: 1.5rem;
+    }
+
+    .trilha-content h3 {
+      font-size: 1.5rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+
+    .trilha-content .location,
+    .trilha-content .duration,
+    .trilha-content .distance {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .trilha-content .description {
+      color: #555;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+
+    .trilha-content .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+      margin: 1rem 0;
+    }
+
+    .btn-reservar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-reservar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Filtros */
+    .filtros-trilhas {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .filtros-trilhas h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .filtro-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filtro-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .filtro-btn:hover,
+    .filtro-btn.ativo {
+      background: white;
+      color: #667eea;
+      border-color: white;
+    }
+
+    /* Seção de Ofertas */
+    .ofertas-section {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .ofertas-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .oferta-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .oferta-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .oferta-card.destaque {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .oferta-card.destaque:hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+
+    .oferta-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #FF6B6B;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transform: rotate(15deg);
+    }
+
+    .oferta-card h3 {
+      font-size: 1.8rem;
+      margin: 1rem 0;
+      color: #667eea;
+    }
+
+    .oferta-card.destaque h3 {
+      color: white;
+    }
+
+    .oferta-descricao {
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .oferta-card.destaque .oferta-descricao {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .preco-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .preco-antigo {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 1.1rem;
+    }
+
+    .preco-novo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .oferta-card.destaque .preco-novo {
+      color: white;
+    }
+
+    .desconto {
+      background: #FF6B6B;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .countdown {
+      background: rgba(255, 107, 107, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .countdown .tempo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #FF6B6B;
+    }
+
+    .oferta-card.destaque .countdown {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .oferta-card.destaque .countdown .tempo {
+      color: white;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-overlay.ativo {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80%;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #999;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    /* Animações */
+    .trilha-card[style*="display: none"] {
+      animation: fadeOut 0.3s ease;
+    }
+
+    .trilha-card:not([style*="display: none"]) {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-20px); }
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .navbar h1 {
+        font-size: 1.3rem;
+      }
+
+      .baner h2 {
+        font-size: 2rem;
+      }
+
+      .baner p {
+        font-size: 1.2rem;
+      }
+
+      .h h2 {
+        font-size: 1.8rem;
+      }
+
+      .slide img {
+        height: 300px;
+      }
+
+      .descricao {
+        padding: 1.5rem;
+      }
+
+      .descricao h3 {
+        font-size: 1.5rem;
+      }
+
+      .trilhas-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .ofertas-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .filtro-buttons {
+        gap: 0.5rem;
+      }
+
+      .filtro-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+      }
+
+      .preco-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
     }
   </style>
-</head>
-<body>
-  <h2>Login com Google</h2>
-
-  <div id="g_id_onload"
-       data-client_id="SEU_CLIENT_ID_AQUI"
-       data-context="signin"
-       data-callback="handleCredentialResponse"
-       data-auto_prompt="false">
-  </div>
-
-  <div class="g_id_signin"
-       data-type="standard"
-       data-shape="rectangular"
-       data-theme="outline"
-       data-text="signin_with"
-       data-size="large">
-  </div>
-
-  <div id="user-info"></div>
-
-  <hr>
-
-  <h2>Formas de Pagamento</h2>
-
-  <form id="pagamento-form">
-    <label>Escolha a forma de pagamento:</label>
-    <select id="forma">
-      <option value="cartao">Cartão</option>
-      <option value="pix">Pix</option>
-    </select>
-
-    <div id="cartao-info">
-      <input type="text" placeholder="Número do Cartão" id="numero" required>
-      <input type="text" placeholder="Nome no Cartão" id="nome" required>
-      <input type="text" placeholder="Validade" id="validade" required>
-      <input type="text" placeholder="CVV" id="cvv" required>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <header class="navbar">
+   <h1 id="site-title">Bem-Vind a GD Turismo</h1><input type="checkbox" id="menu-toggle" class="menu-checkbox"> <label for="menu-toggle" class="hamburger"> <span></span> <span></span> <span></span> </label>
+   <nav class="nav-links"><a href="#praias">Início</a> <a href="#praias">Praias</a> <a href="#trilhas">Trilhas</a> <a href="#contato">Contato</a>
+   </nav>
+   <div class="side-menu"><a href="#praias">Início</a> <a href="#praias">Praias</a> <a href="#trilhas">Trilhas</a> <a href="#contato">Contato</a>
+   </div>
+  </header>
+  <section class="baner">
+   <h2 id="banner-title">Viaje, descubra e viva experiências inesquecíveis</h2>
+   <p id="banner-subtitle">O que é a vida?</p>
+  </section><!-- Seção de Praias -->
+  <div class="fun">
+   <div class="h">
+    <h2 id="beaches-heading">Vem descobrir as nossas Praias</h2>
+   </div>
+   <section class="carrossel-container" id="praias">
+    <div class="carrossel-card">
+     <div class="carrosel" id="carrossel1">
+      <div class="slide ativo">
+       <h2>Descubra as Praias de Sergipe</h2><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2387CEEB;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A90E2;stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='ocean' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234A90E2;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%232E5C8A;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23sky)' width='800' height='300'/%3E%3Cellipse cx='700' cy='80' rx='60' ry='60' fill='%23FFD700' opacity='0.9'/%3E%3Crect fill='url(%23ocean)' y='300' width='800' height='300'/%3E%3Cpath d='M 0 320 Q 200 300 400 320 T 800 320 L 800 350 L 0 350 Z' fill='%23fff' opacity='0.3'/%3E%3Cpath d='M 0 340 Q 250 320 500 340 T 800 340 L 800 370 L 0 370 Z' fill='%23fff' opacity='0.2'/%3E%3Cpath d='M 0 500 Q 100 480 200 500 T 400 500 T 600 500 T 800 500 L 800 600 L 0 600 Z' fill='%23F4E4C1'/%3E%3Ccircle cx='150' cy='520' r='3' fill='%23D4C4A1'/%3E%3Ccircle cx='300' cy='530' r='2' fill='%23D4C4A1'/%3E%3Ccircle cx='500' cy='525' r='4' fill='%23D4C4A1'/%3E%3Cpath d='M 50 550 L 70 570 L 50 570 Z' fill='%2398D8C8' opacity='0.6'/%3E%3Cpath d='M 600 540 L 630 580 L 600 580 Z' fill='%2398D8C8' opacity='0.6'/%3E%3C/svg%3E" alt="Praia de Atalaia" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+       <div class="descricao">
+        <h3>Praia de Atalaia</h3>
+        <p>Aracaju - Sergipe</p><br>
+        <p>Descubra o melhor do litoral sergipano em uma viagem inesquecível! Neste pacote, você conhecerá as principais praias do estado, com conforto, diversão e paisagens deslumbrantes.</p>
+        <details><summary class="resumo">Para saber mais clique aqui</summary>
+         <p>🚌 Incluso no pacote:</p>
+         <ul>
+          <li>Transporte turístico com ar-condicionado</li>
+          <li>Guia credenciado</li>
+          <li>Almoço regional</li>
+          <li>Água mineral e lanche leve</li>
+          <li>Seguro viagem</li>
+         </ul>
+         <p>📅 Duração: 2 dias e 1 noite</p>
+         <p>✨ Promoção especial: Grupos a partir de 4 pessoas ganham 10% de desconto!</p>
+        </details>
+        <p>💰 Valor: R$ 750,00 por pessoa</p><a href="#" target="_blank" rel="noopener noreferrer"> <button>Comprar</button> </a>
+       </div>
+      </div>
+      <div class="slide">
+       <h2>Descubra as Praias de Sergipe</h2><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cdefs%3E%3ClinearGradient id='sky2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23FFB347;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23FF6B6B;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23sky2)' width='800' height='300'/%3E%3Crect fill='%232E5C8A' y='300' width='800' height='300'/%3E%3Cpath d='M 0 500 L 200 480 L 400 500 L 600 490 L 800 500 L 800 600 L 0 600 Z' fill='%23F4E4C1'/%3E%3Cpath d='M 100 520 Q 120 500 140 520' stroke='%2398D8C8' stroke-width='3' fill='none'/%3E%3C/svg%3E" alt="Praia do Saco" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+       <div class="descricao">
+        <h3>Praia do Saco</h3>
+        <p>Estância - Sergipe</p>
+       </div>
+      </div>
+      <div class="slide">
+       <h2>Descubra as Praias de Sergipe</h2><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%2387CEEB' width='800' height='350'/%3E%3Crect fill='%234A90E2' y='350' width='800' height='250'/%3E%3Cpath d='M 0 520 L 150 500 L 300 520 L 450 510 L 600 520 L 800 515 L 800 600 L 0 600 Z' fill='%23F5DEB3'/%3E%3Ccircle cx='100' cy='100' r='50' fill='%23FFD700'/%3E%3C/svg%3E" alt="Praia de Pirambu" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+       <div class="descricao">
+        <h3>Praia de Pirambu</h3>
+        <p>Pirambu - Sergipe</p>
+       </div>
+      </div>
+      <div class="slide">
+       <h2>Descubra as Praias de Sergipe</h2><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%2387CEEB' width='800' height='300'/%3E%3Crect fill='%233A7BC8' y='300' width='800' height='300'/%3E%3Cpath d='M 0 510 Q 200 490 400 510 T 800 510 L 800 600 L 0 600 Z' fill='%23F4E4C1'/%3E%3Cpath d='M 50 350 Q 100 330 150 350' stroke='%23fff' stroke-width='2' fill='none' opacity='0.5'/%3E%3C/svg%3E" alt="Praia de Abaís" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+       <div class="descricao">
+        <h3>Praia de Abaís</h3>
+        <p>Estância - Sergipe</p>
+       </div>
+      </div>
+      <div class="slide">
+       <h2>Aventuras em Sergipe</h2><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%23FFE4B5' width='800' height='600'/%3E%3Cellipse cx='200' cy='400' rx='150' ry='80' fill='%23DEB887'/%3E%3Cellipse cx='500' cy='350' rx='180' ry='100' fill='%23D2B48C'/%3E%3Cellipse cx='650' cy='420' rx='120' ry='70' fill='%23DEB887'/%3E%3Crect x='350' y='250' width='40' height='60' fill='%23654321' rx='5'/%3E%3Ccircle cx='370' cy='230' r='25' fill='%23228B22'/%3E%3C/svg%3E" alt="Passeio de buggy" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+       <div class="descricao">
+        <h3>Passeio de buggy nas dunas</h3>
+        <p>Praia do Saco e Mangue Seco</p>
+       </div>
+      </div>
+     </div>
+     <div class="carrossel-controls"><button onclick="mudarSlide(-1)"><i class="fas fa-chevron-left"></i></button> <button onclick="mudarSlide(1)"><i class="fas fa-chevron-right"></i></button>
+     </div>
+     <div class="carrossel-indicators" id="indicators"><span class="indicator ativo" onclick="irParaSlide(0)"></span> <span class="indicator" onclick="irParaSlide(1)"></span> <span class="indicator" onclick="irParaSlide(2)"></span> <span class="indicator" onclick="irParaSlide(3)"></span> <span class="indicator" onclick="irParaSlide(4)"></span>
+     </div>
     </div>
-
-    <div id="pix-info" style="display:none;">
-      <input type="text" placeholder="Chave Pix" id="pix-chave" required>
+   </section>
+  </div><!-- Seção de Trilhas -->
+  <div class="trilhas-section" id="trilhas">
+   <div class="h">
+    <h2 id="trails-heading">Aventure-se nas Trilhas de Sergipe</h2>
+   </div>
+   <div class="trilhas-grid">
+    <div class="trilha-card" data-difficulty="facil">
+     <div class="trilha-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%2334A853' width='400' height='300'/%3E%3Cpath d='M 0 250 Q 100 200 200 250 T 400 250 L 400 300 L 0 300 Z' fill='%23228B22'/%3E%3Cpath d='M 50 150 Q 150 100 250 150 T 400 150' stroke='%23654321' stroke-width='8' fill='none'/%3E%3Ccircle cx='80' cy='80' r='30' fill='%23FFD700'/%3E%3Cpath d='M 150 200 L 170 180 L 150 180 Z' fill='%23228B22'/%3E%3Cpath d='M 300 220 L 320 200 L 300 200 Z' fill='%23228B22'/%3E%3C/svg%3E" alt="Trilha Fácil" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+      <div class="difficulty-badge facil">
+       Fácil
+      </div>
+     </div>
+     <div class="trilha-content">
+      <h3>Trilha do Mirante</h3>
+      <p class="location">📍 Canindé de São Francisco</p>
+      <p class="duration">⏱️ 2 horas</p>
+      <p class="distance">📏 3 km</p>
+      <p class="description">Uma trilha suave com vista panorâmica do Rio São Francisco. Ideal para iniciantes e famílias.</p>
+      <div class="price">
+       R$ 45,00
+      </div><button class="btn-reservar" onclick="mostrarDetalhes('mirante')">Ver Detalhes</button>
+     </div>
     </div>
-
-    <button type="submit">Salvar Pagamento</button>
-  </form>
-
-  <pre id="jsonOutput"></pre>
+    <div class="trilha-card" data-difficulty="moderada">
+     <div class="trilha-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FF8C00' width='400' height='300'/%3E%3Cpath d='M 0 200 L 100 150 L 200 180 L 300 120 L 400 160 L 400 300 L 0 300 Z' fill='%23654321'/%3E%3Cpath d='M 20 180 Q 120 130 220 160 T 380 140' stroke='%238B4513' stroke-width='6' fill='none'/%3E%3Ccircle cx='350' cy='60' r='25' fill='%23FFD700'/%3E%3Cpath d='M 100 170 L 120 150 L 100 150 Z' fill='%23228B22'/%3E%3C/svg%3E" alt="Trilha Moderada" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+      <div class="difficulty-badge moderada">
+       Moderada
+      </div>
+     </div>
+     <div class="trilha-content">
+      <h3>Trilha da Cachoeira</h3>
+      <p class="location">📍 Poço Redondo</p>
+      <p class="duration">⏱️ 4 horas</p>
+      <p class="distance">📏 6 km</p>
+      <p class="description">Aventura pela mata atlântica até uma cachoeira cristalina. Inclui banho refrescante.</p>
+      <div class="price">
+       R$ 85,00
+      </div><button class="btn-reservar" onclick="mostrarDetalhes('cachoeira')">Ver Detalhes</button>
+     </div>
+    </div>
+    <div class="trilha-card" data-difficulty="dificil">
+     <div class="trilha-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23DC143C' width='400' height='300'/%3E%3Cpath d='M 0 250 L 50 200 L 100 220 L 150 180 L 200 200 L 250 160 L 300 180 L 350 140 L 400 160 L 400 300 L 0 300 Z' fill='%23696969'/%3E%3Cpath d='M 10 240 L 60 190 L 110 210 L 160 170 L 210 190 L 260 150 L 310 170 L 360 130 L 390 150' stroke='%23000' stroke-width='4' fill='none'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23FFD700'/%3E%3C/svg%3E" alt="Trilha Difícil" onerror="this.style.display='none'; this.alt='Imagem não disponível';">
+      <div class="difficulty-badge dificil">
+       Difícil
+      </div>
+     </div>
+     <div class="trilha-content">
+      <h3>Trilha do Pico Alto</h3>
+      <p class="location">📍 Monte Alegre</p>
+      <p class="duration">⏱️ 8 horas</p>
+      <p class="distance">📏 12 km</p>
+      <p class="description">Desafio para aventureiros experientes. Vista espetacular do topo da serra sergipana.</p>
+      <div class="price">
+       R$ 150,00
+      </div><button class="btn-reservar" onclick="mostrarDetalhes('pico')">Ver Detalhes</button>
+     </div>
+    </div>
+   </div><!-- Filtros interativos -->
+   <div class="filtros-trilhas">
+    <h3>Filtrar por dificuldade:</h3>
+    <div class="filtro-buttons"><button class="filtro-btn ativo" onclick="filtrarTrilhas('todas')">Todas</button> <button class="filtro-btn" onclick="filtrarTrilhas('facil')">Fácil</button> <button class="filtro-btn" onclick="filtrarTrilhas('moderada')">Moderada</button> <button class="filtro-btn" onclick="filtrarTrilhas('dificil')">Difícil</button>
+    </div>
+   </div>
+  </div><!-- Seção de Ofertas Especiais -->
+  <div class="ofertas-section" id="ofertas">
+   <div class="h">
+    <h2 id="offers-heading">Ofertas Especiais</h2>
+   </div>
+   <div class="ofertas-container">
+    <div class="oferta-card destaque" onclick="mostrarOferta('combo')">
+     <div class="oferta-badge">
+      🔥 SUPER OFERTA
+     </div>
+     <h3>Combo Completo</h3>
+     <p class="oferta-descricao">3 Praias + 2 Trilhas + Hospedagem</p>
+     <div class="preco-container"><span class="preco-antigo">R$ 1.200,00</span> <span class="preco-novo">R$ 899,00</span> <span class="desconto">25% OFF</span>
+     </div>
+     <div class="countdown" id="countdown-combo"><span>Oferta expira em: </span> <span class="tempo">02:15:30</span>
+     </div>
+    </div>
+    <div class="oferta-card" onclick="mostrarOferta('familia')">
+     <div class="oferta-badge">
+      👨‍👩‍👧‍👦 FAMÍLIA
+     </div>
+     <h3>Pacote Família</h3>
+     <p class="oferta-descricao">4 pessoas pagam 3 em qualquer pacote</p>
+     <div class="preco-container"><span class="preco-novo">A partir de R$ 450,00</span>
+     </div>
+    </div>
+    <div class="oferta-card" onclick="mostrarOferta('estudante')">
+     <div class="oferta-badge">
+      🎓 ESTUDANTE
+     </div>
+     <h3>Desconto Estudante</h3>
+     <p class="oferta-descricao">50% de desconto com carteirinha</p>
+     <div class="preco-container"><span class="preco-novo">A partir de R$ 225,00</span>
+     </div>
+    </div>
+   </div>
+  </div><!-- Modal para detalhes -->
+  <div class="modal-overlay" id="modal-overlay" onclick="fecharModal()">
+   <div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="fecharModal()">×</button>
+    <div id="modal-body"><!-- Conteúdo será inserido dinamicamente -->
+    </div>
+   </div>
+  </div>
   <script>
-    // ====== LOGIN GOOGLE ======
-function handleCredentialResponse(response) {
-  const data = decodeJwtResponse(response.credential);
-  document.getElementById("user-info").innerHTML = `
-    <p>Olá, <b>${data.name}</b>!</p>
-    <img src="${data.picture}" width="60">
-  `;
-}
-
-function decodeJwtResponse(token) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(
-    atob(base64).split('').map(c =>
-      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-    ).join('')
-  );
-  return JSON.parse(jsonPayload);
-}
-
-// ====== PAGAMENTO ======
-const pagamentoForm = document.getElementById('pagamento-form');
-const forma = document.getElementById('forma');
-const cartaoInfo = document.getElementById('cartao-info');
-const pixInfo = document.getElementById('pix-info');
-const jsonOutput = document.getElementById('jsonOutput');
-
-// alternar tipo
-forma.addEventListener('change', () => {
-  if (forma.value === 'cartao') {
-    cartaoInfo.style.display = 'block';
-    pixInfo.style.display = 'none';
-  } else {
-    cartaoInfo.style.display = 'none';
-    pixInfo.style.display = 'block';
-  }
-});
-
-// enviar pro servidor
-pagamentoForm.addEventListener('submit', async e => {
-  e.preventDefault();
-
-  let pagamento = { tipo: forma.value };
-
-  if (forma.value === 'cartao') {
-    pagamento.dados = {
-      numero: document.getElementById('numero').value,
-      nome: document.getElementById('nome').value,
-      validade: document.getElementById('validade').value,
-      cvv: document.getElementById('cvv').value
+    const defaultConfig = {
+      site_title: "Bem-Vind a GD Turismo",
+      banner_title: "Viaje, descubra e viva experiências inesquecíveis",
+      banner_subtitle: "O que é a vida?",
+      beaches_heading: "Vem descobrir as nossas Praias",
+      trails_heading: "Aventure-se nas Trilhas de Sergipe",
+      offers_heading: "Ofertas Especiais",
+      background_color: "#667eea",
+      surface_color: "#ffffff",
+      text_color: "#333333",
+      primary_action_color: "#667eea",
+      secondary_action_color: "#764ba2",
+      font_family: "Poppins",
+      font_size: 16
     };
-  } else {
-    pagamento.dados = {
-      chavePix: document.getElementById('pix-chave').value
-    };
-  }
 
-  const resposta = await fetch("http://localhost:3000/salvar", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(pagamento)
-  });
+    let slideAtual = 0;
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.indicator');
 
-  const resultado = await resposta.json();
-  jsonOutput.textContent = JSON.stringify(pagamento, null, 2);
-  alert(resultado.mensagem);
-});
+    function mostrarSlide(n) {
+      if (n >= slides.length) slideAtual = 0;
+      if (n < 0) slideAtual = slides.length - 1;
+
+      slides.forEach(slide => slide.classList.remove('ativo'));
+      indicators.forEach(indicator => indicator.classList.remove('ativo'));
+
+      slides[slideAtual].classList.add('ativo');
+      indicators[slideAtual].classList.add('ativo');
+    }
+
+    function mudarSlide(direcao) {
+      slideAtual += direcao;
+      mostrarSlide(slideAtual);
+    }
+
+    function irParaSlide(n) {
+      slideAtual = n;
+      mostrarSlide(slideAtual);
+    }
+
+    // Auto-play do carrossel
+    setInterval(() => {
+      mudarSlide(1);
+    }, 5000);
+
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('.side-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('menu-toggle').checked = false;
+      });
+    });
+
+    // Funcionalidades das trilhas
+    function filtrarTrilhas(dificuldade) {
+      const trilhas = document.querySelectorAll('.trilha-card');
+      const botoes = document.querySelectorAll('.filtro-btn');
+      
+      // Atualizar botões ativos
+      botoes.forEach(btn => btn.classList.remove('ativo'));
+      event.target.classList.add('ativo');
+      
+      // Filtrar trilhas
+      trilhas.forEach(trilha => {
+        if (dificuldade === 'todas' || trilha.dataset.difficulty === dificuldade) {
+          trilha.style.display = 'block';
+        } else {
+          trilha.style.display = 'none';
+        }
+      });
+    }
+
+    function mostrarDetalhes(trilha) {
+      const modal = document.getElementById('modal-overlay');
+      const modalBody = document.getElementById('modal-body');
+      
+      let conteudo = '';
+      
+      switch(trilha) {
+        case 'mirante':
+          conteudo = `
+            <h2>Trilha do Mirante</h2>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%2334A853' width='400' height='300'/%3E%3Cpath d='M 0 250 Q 100 200 200 250 T 400 250 L 400 300 L 0 300 Z' fill='%23228B22'/%3E%3Cpath d='M 50 150 Q 150 100 250 150 T 400 150' stroke='%23654321' stroke-width='8' fill='none'/%3E%3Ccircle cx='80' cy='80' r='30' fill='%23FFD700'/%3E%3Cpath d='M 150 200 L 170 180 L 150 180 Z' fill='%23228B22'/%3E%3Cpath d='M 300 220 L 320 200 L 300 200 Z' fill='%23228B22'/%3E%3C/svg%3E" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+            <p><strong>📍 Local:</strong> Canindé de São Francisco</p>
+            <p><strong>⏱️ Duração:</strong> 2 horas</p>
+            <p><strong>📏 Distância:</strong> 3 km</p>
+            <p><strong>🏃‍♂️ Dificuldade:</strong> Fácil</p>
+            <h3>Descrição</h3>
+            <p>Uma trilha suave e acessível que leva ao mirante com vista panorâmica do Rio São Francisco. Perfeita para iniciantes, famílias com crianças e pessoas que buscam uma experiência tranquila na natureza.</p>
+            <h3>O que está incluído:</h3>
+            <ul>
+              <li>Guia especializado</li>
+              <li>Água mineral</li>
+              <li>Lanche energético</li>
+              <li>Seguro de acidentes</li>
+              <li>Transporte até o início da trilha</li>
+            </ul>
+            <h3>O que levar:</h3>
+            <ul>
+              <li>Calçado confortável</li>
+              <li>Protetor solar</li>
+              <li>Chapéu ou boné</li>
+              <li>Câmera fotográfica</li>
+            </ul>
+            <div style="text-align: center; margin-top: 2rem;">
+              <div style="font-size: 2rem; font-weight: bold; color: #667eea; margin-bottom: 1rem;">R$ 45,00</div>
+              <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1.1rem;">Reservar Agora</button>
+            </div>
+          `;
+          break;
+        case 'cachoeira':
+          conteudo = `
+            <h2>Trilha da Cachoeira</h2>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FF8C00' width='400' height='300'/%3E%3Cpath d='M 0 200 L 100 150 L 200 180 L 300 120 L 400 160 L 400 300 L 0 300 Z' fill='%23654321'/%3E%3Cpath d='M 20 180 Q 120 130 220 160 T 380 140' stroke='%238B4513' stroke-width='6' fill='none'/%3E%3Ccircle cx='350' cy='60' r='25' fill='%23FFD700'/%3E%3Cpath d='M 100 170 L 120 150 L 100 150 Z' fill='%23228B22'/%3E%3C/svg%3E" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+            <p><strong>📍 Local:</strong> Poço Redondo</p>
+            <p><strong>⏱️ Duração:</strong> 4 horas</p>
+            <p><strong>📏 Distância:</strong> 6 km</p>
+            <p><strong>🏃‍♂️ Dificuldade:</strong> Moderada</p>
+            <h3>Descrição</h3>
+            <p>Aventura pela mata atlântica preservada até uma cachoeira de águas cristalinas. A trilha inclui travessia de riachos, observação da fauna local e um refrescante banho na cachoeira.</p>
+            <h3>Destaques:</h3>
+            <ul>
+              <li>Cachoeira com poço natural para banho</li>
+              <li>Observação de aves e animais silvestres</li>
+              <li>Vegetação exuberante da mata atlântica</li>
+              <li>Formações rochosas únicas</li>
+            </ul>
+            <h3>Recomendações:</h3>
+            <ul>
+              <li>Roupa de banho</li>
+              <li>Toalha</li>
+              <li>Calçado antiderrapante</li>
+              <li>Repelente</li>
+            </ul>
+            <div style="text-align: center; margin-top: 2rem;">
+              <div style="font-size: 2rem; font-weight: bold; color: #667eea; margin-bottom: 1rem;">R$ 85,00</div>
+              <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1.1rem;">Reservar Agora</button>
+            </div>
+          `;
+          break;
+        case 'pico':
+          conteudo = `
+            <h2>Trilha do Pico Alto</h2>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23DC143C' width='400' height='300'/%3E%3Cpath d='M 0 250 L 50 200 L 100 220 L 150 180 L 200 200 L 250 160 L 300 180 L 350 140 L 400 160 L 400 300 L 0 300 Z' fill='%23696969'/%3E%3Cpath d='M 10 240 L 60 190 L 110 210 L 160 170 L 210 190 L 260 150 L 310 170 L 360 130 L 390 150' stroke='%23000' stroke-width='4' fill='none'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23FFD700'/%3E%3C/svg%3E" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+            <p><strong>📍 Local:</strong> Monte Alegre</p>
+            <p><strong>⏱️ Duração:</strong> 8 horas</p>
+            <p><strong>📏 Distância:</strong> 12 km</p>
+            <p><strong>🏃‍♂️ Dificuldade:</strong> Difícil</p>
+            <h3>Descrição</h3>
+            <p>Desafio para aventureiros experientes! Esta trilha leva ao ponto mais alto da serra sergipana, oferecendo vistas espetaculares de 360° da região. Requer boa condição física e experiência em trilhas.</p>
+            <h3>Pré-requisitos:</h3>
+            <ul>
+              <li>Experiência prévia em trilhas</li>
+              <li>Boa condição física</li>
+              <li>Idade mínima: 16 anos</li>
+              <li>Atestado médico recomendado</li>
+            </ul>
+            <h3>Equipamentos inclusos:</h3>
+            <ul>
+              <li>Equipamentos de segurança</li>
+              <li>Bastões de caminhada</li>
+              <li>Kit de primeiros socorros</li>
+              <li>Comunicação via rádio</li>
+            </ul>
+            <div style="background: #fff3cd; padding: 1rem; border-radius: 10px; margin: 1rem 0; border-left: 4px solid #ffc107;">
+              <strong>⚠️ Atenção:</strong> Esta trilha é recomendada apenas para pessoas com experiência em montanhismo e boa condição física.
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+              <div style="font-size: 2rem; font-weight: bold; color: #667eea; margin-bottom: 1rem;">R$ 150,00</div>
+              <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1.1rem;">Reservar Agora</button>
+            </div>
+          `;
+          break;
+      }
+      
+      modalBody.innerHTML = conteudo;
+      modal.classList.add('ativo');
+    }
+
+    function mostrarOferta(oferta) {
+      const modal = document.getElementById('modal-overlay');
+      const modalBody = document.getElementById('modal-body');
+      
+      let conteudo = '';
+      
+      switch(oferta) {
+        case 'combo':
+          conteudo = `
+            <h2>🔥 Combo Completo - Super Oferta!</h2>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; text-align: center;">
+              <h3 style="margin: 0; font-size: 2rem;">25% OFF</h3>
+              <p style="margin: 0.5rem 0;">Oferta por tempo limitado!</p>
+            </div>
+            <h3>O que está incluído:</h3>
+            <div style="display: grid; gap: 1rem; margin: 1.5rem 0;">
+              <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                <strong>🏖️ 3 Praias Premium:</strong>
+                <ul>
+                  <li>Praia de Atalaia (Aracaju)</li>
+                  <li>Praia do Saco (Estância)</li>
+                  <li>Praia de Pirambu</li>
+                </ul>
+              </div>
+              <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                <strong>🥾 2 Trilhas Incríveis:</strong>
+                <ul>
+                  <li>Trilha do Mirante</li>
+                  <li>Trilha da Cachoeira</li>
+                </ul>
+              </div>
+              <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                <strong>🏨 Hospedagem:</strong>
+                <ul>
+                  <li>2 diárias em pousada 4 estrelas</li>
+                  <li>Café da manhã incluso</li>
+                  <li>Wi-Fi gratuito</li>
+                </ul>
+              </div>
+            </div>
+            <div style="text-align: center; background: #fff3cd; padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
+              <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                <span style="text-decoration: line-through; color: #999; font-size: 1.5rem;">R$ 1.200,00</span>
+                <span style="font-size: 2.5rem; font-weight: bold; color: #667eea;">R$ 899,00</span>
+                <span style="background: #FF6B6B; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold;">25% OFF</span>
+              </div>
+              <p style="margin-top: 1rem; color: #666;">Economia de R$ 301,00!</p>
+            </div>
+            <div style="text-align: center;">
+              <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1.2rem 3rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1.2rem;">Garantir Oferta Agora!</button>
+            </div>
+          `;
+          break;
+        case 'familia':
+          conteudo = `
+            <h2>👨‍👩‍👧‍👦 Pacote Família</h2>
+            <div style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; text-align: center;">
+              <h3 style="margin: 0; font-size: 2rem;">4 Pagam 3!</h3>
+              <p style="margin: 0.5rem 0;">Diversão garantida para toda família</p>
+            </div>
+            <h3>Como funciona:</h3>
+            <ul>
+              <li>Válido para grupos familiares de 4 pessoas</li>
+              <li>Uma pessoa não paga (menor de idade)</li>
+              <li>Aplicável em qualquer pacote de praias ou trilhas</li>
+              <li>Crianças até 5 anos não pagam</li>
+            </ul>
+            <h3>Benefícios extras:</h3>
+            <ul>
+              <li>Kit de atividades para crianças</li>
+              <li>Lanche especial infantil</li>
+              <li>Guia especializado em turismo familiar</li>
+              <li>Seguro família incluso</li>
+            </ul>
+            <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
+              <h4 style="color: #4CAF50; margin-top: 0;">Exemplo de economia:</h4>
+              <p>Pacote Praia de Atalaia para 4 pessoas:</p>
+              <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
+                <span>Valor normal (4x R$ 750):</span>
+                <span style="text-decoration: line-through;">R$ 3.000,00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin: 0.5rem 0; font-weight: bold; color: #4CAF50;">
+                <span>Com desconto família (3x R$ 750):</span>
+                <span>R$ 2.250,00</span>
+              </div>
+              <div style="text-align: center; margin-top: 1rem; font-weight: bold; color: #4CAF50;">
+                Economia: R$ 750,00!
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <button style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; border: none; padding: 1.2rem 3rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1.2rem;">Reservar Pacote Família</button>
+            </div>
+          `;
+          break;
+        case 'estudante':
+          conteudo = `
+            <h2>🎓 Desconto Estudante</h2>
+            
+            <div style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; text-align: center;">
+              <h3 style="margin: 0; font-size: 2rem;">50% OFF</h3>
+              <p style="margin: 0.5rem 0;">Para estudantes com carteirinha válida</p>
+            </div>
+            <h3>Requisitos:</h3>
+            <ul>
+              <li>Carteirinha de estudante válida</li>
+              <li>Documento de identidade</li>
+              <li>Idade entre 16 e 25 anos</li>
+              <li>Válido apenas para estudantes de ensino médio, técnico ou superior</li>
+            </ul>
+            <h3>Pacotes disponíveis:</h3>
+            <div style="display: grid; gap: 1rem; margin: 1.5rem 0;">
+              <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <span><strong>Praia de Atalaia</strong></span>
+                <div>
+                  <span style="text-decoration: line-through; color: #999; margin-right: 0.5rem;">R$ 750</span>
+                  <span style="color: #2196F3; font-weight: bold;">R$ 375</span>
+                </div>
+              </div>
+              <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <span><strong>Trilha do Mirante</strong></span>
+                <div>
+                  <span style="text-decoration: line-through; color: #999; margin-right: 0.5rem;">R$ 45</span>
+                  <span style="color: #2196F3; font-weight: bold;">R$ 22,50</span>
+                </div>
+              </div>
+              <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <span><strong>Trilha da Cachoeira</strong></span>
+                <div>
+                  <span style="text-decoration: line-through; color: #999; margin-right: 0.5rem;">R$ 85</span>
+                  <span style="color: #2196F3; font-weight: bold;">R$ 42,50</span>
+                </div>
+              </div>
+            </div>
+            <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
+              <h4 style="color: #2196F3; margin-top: 0;">💡 Dica:</h4>
+              <p>Combine com amigos estudantes e aproveitem juntos! Grupos de 3 ou mais estudantes ganham transporte gratuito.</p>
+            </div>
+            <div style="text-align: center;">
+              <button style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; border: none; padding: 1.2rem 3rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1.2rem;">Aproveitar Desconto</button>
+            </div>
+          `;
+          break;
+      }
+      
+      modalBody.innerHTML = conteudo;
+      modal.classList.add('ativo');
+    }
+
+    function fecharModal() {
+      document.getElementById('modal-overlay').classList.remove('ativo');
+    }
+
+    // Countdown timer para ofertas
+    function iniciarCountdown() {
+      const countdownElement = document.querySelector('#countdown-combo .tempo');
+      let tempo = 2 * 3600 + 15 * 60 + 30; // 2h 15m 30s em segundos
+      
+      setInterval(() => {
+        const horas = Math.floor(tempo / 3600);
+        const minutos = Math.floor((tempo % 3600) / 60);
+        const segundos = tempo % 60;
+        
+        countdownElement.textContent = 
+          `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+        
+        tempo--;
+        
+        if (tempo < 0) {
+          tempo = 2 * 3600 + 15 * 60 + 30; // Reinicia o countdown
+        }
+      }, 1000);
+    }
+
+    // Iniciar countdown quando a página carregar
+    iniciarCountdown();
+
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+
+      // Atualizar textos editáveis
+      document.getElementById('site-title').textContent = config.site_title || defaultConfig.site_title;
+      document.getElementById('banner-title').textContent = config.banner_title || defaultConfig.banner_title;
+      document.getElementById('banner-subtitle').textContent = config.banner_subtitle || defaultConfig.banner_subtitle;
+      document.getElementById('beaches-heading').textContent = config.beaches_heading || defaultConfig.beaches_heading;
+      document.getElementById('trails-heading').textContent = config.trails_heading || defaultConfig.trails_heading;
+      document.getElementById('offers-heading').textContent = config.offers_heading || defaultConfig.offers_heading;
+
+      // Aplicar cores
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+      document.body.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${secondaryActionColor} 100%)`;
+      document.querySelector('.navbar').style.background = `rgba(255, 255, 255, 0.95)`;
+      document.querySelector('.navbar h1').style.color = primaryActionColor;
+      
+      document.querySelectorAll('.carrossel-card').forEach(card => {
+        card.style.background = surfaceColor;
+      });
+
+      document.querySelectorAll('.descricao h3').forEach(h3 => {
+        h3.style.color = primaryActionColor;
+      });
+
+      document.querySelectorAll('.descricao p, .descricao ul').forEach(el => {
+        el.style.color = textColor;
+      });
+
+      document.querySelectorAll('.descricao button').forEach(btn => {
+        btn.style.background = `linear-gradient(135deg, ${primaryActionColor} 0%, ${secondaryActionColor} 100%)`;
+      });
+
+      document.querySelectorAll('.carrossel-controls button').forEach(btn => {
+        btn.style.background = primaryActionColor;
+      });
+
+      document.querySelectorAll('.indicator.ativo').forEach(ind => {
+        ind.style.background = primaryActionColor;
+      });
+
+      // Aplicar fonte
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+      // Aplicar tamanhos de fonte proporcionais
+      document.querySelector('.navbar h1').style.fontSize = `${baseSize * 1.125}px`;
+      document.querySelector('.baner h2').style.fontSize = `${baseSize * 1.875}px`;
+      document.querySelector('.baner p').style.fontSize = `${baseSize * 0.9375}px`;
+      document.querySelector('.h h2').style.fontSize = `${baseSize * 1.5625}px`;
+      document.querySelectorAll('.slide h2').forEach(h2 => {
+        h2.style.fontSize = `${baseSize * 1.125}px`;
+      });
+      document.querySelectorAll('.descricao h3').forEach(h3 => {
+        h3.style.fontSize = `${baseSize * 1.125}px`;
+      });
+      document.querySelectorAll('.descricao p, .descricao ul').forEach(el => {
+        el.style.fontSize = `${baseSize}px`;
+      });
+      document.querySelectorAll('.descricao button').forEach(btn => {
+        btn.style.fontSize = `${baseSize * 0.6875}px`;
+      });
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.style.fontSize = `${baseSize}px`;
+      });
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                config.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => {
+                config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["site_title", config.site_title || defaultConfig.site_title],
+          ["banner_title", config.banner_title || defaultConfig.banner_title],
+          ["banner_subtitle", config.banner_subtitle || defaultConfig.banner_subtitle],
+          ["beaches_heading", config.beaches_heading || defaultConfig.beaches_heading],
+          ["trails_heading", config.trails_heading || defaultConfig.trails_heading],
+          ["offers_heading", config.offers_heading || defaultConfig.offers_heading]
+        ])
+      });
+    }
   </script>
-</body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99845ffbb3409ad4',t:'MTc2MjA5NDI5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

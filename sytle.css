@@ -4,6 +4,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root{
+  ---cor-w :  rgb(9, 247, 21);
+  ---cor-i: #e1306c;
+  ---cor-e: rgb(16, 18, 18);
+}
+
 
 /* GERAL */
 html, body {
@@ -134,7 +140,7 @@ header h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 34pt;
   text-align: center;
-  color: black;
+  color: white;
 }
 
 .baner p {
@@ -159,7 +165,8 @@ header h1 {
 
 /* GRADIENTE DA SEÇÃO DE PROMOÇÕES */
 .fun {
-  background: linear-gradient(white, rgb(5, 252, 235), #06f016, #06f016, #e66706, rgb(252, 207, 5) , rgb(5, 5, 5), rgb(11, 11, 11) , rgb(5, 5, 5));
+  height: 450vh;
+  background: linear-gradient(white, rgb(5, 252, 235), #06f016, #06f016, #e66706, rgb(252, 207, 5) , rgb(5, 5, 5), rgb(5, 5, 5), rgb(11, 11, 11) , rgb(5, 5, 5));
   text-align: center;
 
 
@@ -167,6 +174,7 @@ header h1 {
 
 /* TÍTULOS */
 .h {
+  margin-top: 30px auto;
   padding: 60px 20px;
   font-size: 20px;
   text-align: center;
@@ -177,29 +185,37 @@ header h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 30px ;
-  height: 100vh;
+ 
   gap: 25px;
   
   
  
 }
 .card-container h1 {
-  margin-top: 30px;
+  margin-top: 100px;
   color: #015c94;
 }
+.card-container h2 {
+
+  color: #d6dcdf;
+}
+.card-container p {
+  
+  color: #dee2e4;
+}
 .card {
-  position: relative;
-  margin-top: 35px;
-  background: linear-gradient(#0277bd, white);
-  text-align: center;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(205, 9, 9, 0.1);
+  background: rgb(16, 78, 194);
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 280px;
   padding: 15px;
-  overflow: hidden;
+  
   transition: transform 0.3s;
   animation: aparecer 0.6s forwards;
+}
+.card h3{
+  color: white;
+  margin-top: 10px ;
 }
 
 .card img {
@@ -254,7 +270,43 @@ summary.resumo {
   cursor: pointer;
   font-weight: bold;
 }
+.conta{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;              /* espaço entre os carrosséis */
+  margin-top: 60px; 
+  width: 80%;
+  color: white;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.conta h3{
+  margin-top:10px;
+}
+.conta--icons  {
+  margin: 10px 0;
+}
 
+.conta-icons a {
+  margin: 0 10px;
+  font-size: 50px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.icon-w{
+  color: var(---cor-w);
+}
+.icon-i{
+  color: var(---cor-i);
+}
+.icon-e{
+  color: var(---cor-e);
+}
+.conta-icons a:hover {
+  color: #00ffcc
+}
 /* RODAPÉ */
 footer {
   text-align: center;
@@ -268,6 +320,102 @@ footer {
   gap: 10px;
   font-size: 14px;
 }
+.social-icons {
+  margin: 10px 0;
+}
+
+.social-icons a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #00ffcc; /* cor ao passar o mouse */
+}
+button {
+  background: #005bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+button:hover {
+  background: #003ec2;
+}
+
+/* 🔹 FUNDO ESCURO ATRÁS DO MODAL */
+.modal-fundo {
+  display: none; /* Invisível até ser ativado */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* fica acima do resto */
+  transition: opacity 0.3s ease;
+}
+
+/* Quando o modal for ativado, mostra */
+.modal-fundo .ativo {
+  display: flex;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* 🔹 CAIXA DO MODAL */
+.modal {
+  background: linear-gradient(blue,white) !important;
+  color: #111;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 15px;
+  padding: 25px 20px;
+  text-align: left;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  position: relative;
+  animation: slideDown 0.3s ease;
+}
+
+/* 🔹 BOTÃO DE FECHAR (X) */
+.fechar {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #777;
+  transition: color 0.2s;
+}
+.fechar:hover {
+  color: #000;
+}
+
+
+/* 🔹 ANIMAÇÕES SUAVES */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* 🔽 RESPONSIVIDADE */
 @media (max-width: 768px) {
   .nav-links {
@@ -282,5 +430,12 @@ footer {
     font-size: 24px;
     text-align: center; /* título centralizado no celular */
     width: 100%;
+  }
+  
+  .fun{
+    height: 1000vh;
+     background: linear-gradient(white, rgb(5, 252, 235), #06f016, #06f016, #e66706, rgb(252, 207, 5) , rgb(5, 5, 5), rgb(11, 11, 11) , rgb(5, 5, 5));
+  
+
   }
 }
